@@ -1,0 +1,26 @@
+{% extends "ciencias_app/base.html" %}   
+
+{% block content %}
+<html>
+    <body>
+
+        <p>Estas buscando: <strong>{{consulta}}</strong></p>
+
+        {%if cursos %}
+            <p>Cantidad de cursos llevados: </p>
+            <ul>
+                {%for curso in cursos%}
+                <li>
+                    {{curso.Nombre}} &nbsp; {{curso.Codigo}}
+                </li>
+                {%endfor%}
+            </ul>
+        {%else%}
+            
+            <p>Curso no encontrado</p>
+
+        {%endif%}
+
+    </body>
+</html>
+{% endblock content %}
