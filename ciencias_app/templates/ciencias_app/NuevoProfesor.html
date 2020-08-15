@@ -1,0 +1,13 @@
+{% extends "ciencias_app/base.html" %} {% block content %}
+
+<p><a href="{% url 'ciencias_app:Departamentos' departamento.id %}">{{departamento.id}}</a></p>
+
+
+<p>Añadir nuevo nombre del departamento:</p>
+
+<form action="{% url 'ciencias_app:NuevoProfesor' departamento.id %}" method='post'>
+    {% csrf_token %} {{form.as_p}}
+    <button name="submit">Añadir nombre</button>
+</form>
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends "ciencias_app/base.html" %} {% block content %}
+
+<p>Departamentos</p>
+
+<ul>
+    {% for Departamento in Departamentos %}
+    <li>
+
+        {{ Departamento }}
+
+    </li>
+    {% empty %}
+    <li>
+        Los departamentos no han sido agregado aun
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

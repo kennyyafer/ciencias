@@ -1,42 +1,62 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+
 from django.http import HttpResponse
-from .models import profesor,curso
+from .models import profesor, departamento, curso
+from .forms import DepartamentoForm, ProfesorForm
+
 # Create your views here.
 def index(request):
     """The home page for Ciencias log."""
     return render(request, 'ciencias_app/index.html')
 
-def cursosllevados(request):
-    """Mostrar la barra de busqueda."""
-   
-    return render(request, 'ciencias_app/cursosllevados.html')
+def Departamentos(request):
+    """Muestra los departamentos.."""
+    Departamentos = departamento.objects.order_by('Nombre')
+    context = {'Departamentos':Departamentos}
+    return render(request, 'ciencias_app/Departamentos.html',context)
 
-def buscar(request):
-    """Mensaje."""
-    if request.GET['cursos']:
-        #mensaje = 'Cursos buscados: %r' %request.GET['cursos']
-        cursofinalizado = request.GET['cursos']
+# def Departamento(request, id):
+#     """Muestra un solo departamento con todos sus profesores."""
+#     Departamento = departamento.objects.get(id=departamento_id)
+#     Profesores = Departamento.profesor_set.order_by('Apellido')
+#     context = {'Departamento': Departamento, 'Profesores': Profesores}
+#     return render(request, 'ciencias_app/departamento.html', context)
 
-        # limitar el numero de caracteres
-        if len(cursofinalizado) > 120:
 
-            mensaje = 'Texto de busqueda demasiado largo'
-
-        else:
-
-            context = dict()
-            context['cursos'] = curso.objects.filter(Nombre__icontains=cursofinalizado)
-            #cursos = curso.objects.filter(Nombre__icontains=cursofinalizado)
-
-            return render(request, 'ciencias_app/resultados_busqueda.html',
-            {'cursos':context['cursos'],'consulta':cursofinalizado})
-
+def NuevoDepartamento(request):
+    """Añadir nuevo nombre de departamento """
+    if request.method != 'POST':
+        # No se ha enviado datos: crea un formulario en blanco
+        form = DepartamentoForm()
     else:
-        mensaje = 'No has introducido nada, vuelve a intentarlo'
-   
-    return HttpResponse(mensaje)
+        # Datos POST enviado: procesar datos
+        form = DepartamentoForm(data=request.POST)
+        if form.is_valid():
+            #form.save()
+            return redirect('ciencias_app:Departamentos')
+
+    # Mostrar una forma en blanco o invalida
+    context = {'form':form}
+    return render(request,'ciencias_app/NuevoDepartamento.html',context)
 
 
-def contacto(request):
-    """ """
-    return render(request, 'contacto.html')
+def NuevoProfesor(request,departamentoid):
+    """Añadir nuevo nombre para un departamento particular """
+    Departamento = departamento.objects.get(id=departamentoid)
+    if request.method != 'POST':
+        # No se ha enviado datos: crea un formulario en blanco
+        form = ProfesorForm()
+    else:
+        # Datos POST enviado: procesar datos
+        form = ProfesorForm(data=request.POST)
+        if form.is_valid():
+            nuevoprofesor = form.save(commit=False)
+            nuevoprofesor.Departamento = Departamento
+            nuevoprofesor.save()
+            return redirect('ciencias_app:resultados_busqueda.html',departamentoid=departamentoid)
+
+    # Mostrar una forma en blanco o invalida
+    context = {'Departamento':Departamento,'form':form}
+    return render(request,'ciencias_app/NuevoProfesor.html',context)
+
+        

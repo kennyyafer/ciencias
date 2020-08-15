@@ -8,8 +8,12 @@ app_name = 'ciencias_app'
 urlpatterns = [
     # Home page
     path('', views.index, name='index'),
-    # Page that shows all topics.➊     
-    path('cursosllevados/', views.cursosllevados, name='cursosllevados'),
-    path('buscar/', views.buscar),
-    path('contacto/', views.contacto),
+    # Pagina que muestra departamentos.    
+    path('Departamentos/', views.Departamentos, name='Departamentos'),
+    # Pagina de profesores para un solo departamento
+    #path('Departamentos/<int:departamento_id>/', views.Departamento, name='Departamento'),
+    # Pagina para añadir un nuevo profesor
+    path('NuevoDepartamento/', views.NuevoDepartamento,name='NuevoDepartamento'),
+    # Pagina para añadir un nuevo profesor
+    path('NuevoProfesor/<int:departamentoid>/', views.NuevoProfesor,name='NuevoProfesor'),
 ]

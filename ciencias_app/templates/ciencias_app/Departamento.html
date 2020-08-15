@@ -1,0 +1,17 @@
+{% extends 'ciencias_app/base.html' %} {% block content %}
+
+<p>departamento: {{ Departamento }}</p>
+
+<p>Profesores:</p>
+<ul>
+    {% for Profesor in Profesores %}
+    <li>
+        <p>{{ Profesor.Nombre|linebreaks}}</p>
+        <p>{{ Profesor.Apellido|linebreaks }}</p>
+    </li>
+    {% empty %}
+    <li>There are no entries for this topic yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

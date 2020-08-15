@@ -1,6 +1,7 @@
 from django.contrib import admin
 # Se llama la libreria para importar y exportar
 from import_export import resources
+
 from  import_export.admin import ImportExportActionModelAdmin
 # Register your models here.
 #from .models import departamento,profesor, operador, tipodecurso, curso
@@ -8,8 +9,6 @@ from  import_export.admin import ImportExportActionModelAdmin
 
 # Se llaman todos los modelos existentes
 from .models import *
-
-
 
 # Se elabora una clase por cada modelo para colocar el import/export
 class DepartamentoResource(resources.ModelResource):
@@ -25,7 +24,6 @@ class DepartamentoAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
     resource_class = DepartamentoResource
 
 
-
 class ProfesorResource(resources.ModelResource):
     class Meta:
         model = profesor
@@ -35,7 +33,6 @@ class ProfesorAdmin(ImportExportActionModelAdmin,admin.ModelAdmin):
     list_display = ('Apellido','Nombre','CorreoInstitucional',
     'CorreoPersonal','Departamentoid')
     resource_class = ProfesorResource
-
 
 
 class OperadorResource(resources.ModelResource):
@@ -48,7 +45,6 @@ class OperadorAdmin(ImportExportActionModelAdmin,admin.ModelAdmin):
     resource_class = OperadorResource
 
 
-
 class TipodecursoResource(resources.ModelResource):
     class Meta:
         model = tipodecurso
@@ -57,8 +53,6 @@ class TipodecursoAdmin(ImportExportActionModelAdmin,admin.ModelAdmin):
     search_fields = ['Nombre']
     list_display = ('id','Nombre',)
     resource_class = TipodecursoResource
-
-
 
 
 class CursoResource(resources.ModelResource):
@@ -71,7 +65,6 @@ class CursoAdmin(ImportExportActionModelAdmin,admin.ModelAdmin):
     resource_class = CursoResource
 
 
-
 class CarreraResource(resources.ModelResource):
     class Meta:
         model = carrera
@@ -80,7 +73,6 @@ class CarreraAdmin(ImportExportActionModelAdmin,admin.ModelAdmin):
     search_fields = ['Nombre']
     list_display = ('Nombre','Departamentoid',)
     resource_class = CarreraResource
-
 
 
 class EstadoResource(resources.ModelResource):
@@ -93,8 +85,6 @@ class EstadoAdmin(ImportExportActionModelAdmin,admin.ModelAdmin):
     resource_class = EstadoResource
 
 
-
-
 class Curso_profesorResource(resources.ModelResource):
     class Meta:
         model = curso_profesor
@@ -104,8 +94,6 @@ class Curso_profesorAdmin(ImportExportActionModelAdmin,admin.ModelAdmin):
     list_display = ('Fechainicio','Fechafinal','Cohorte',
     'Profesorid','Cursoid','Estadoid',)
     resource_class = Curso_profesorResource
-
-
 
 
 class Operador_profesorResource(resources.ModelResource):
