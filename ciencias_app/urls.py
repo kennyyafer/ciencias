@@ -16,4 +16,7 @@ urlpatterns = [
     path('NuevoDepartamento/', views.NuevoDepartamento,name='NuevoDepartamento'),
     # Pagina para añadir un nuevo profesor
     path('NuevoProfesor/<int:departamentoid>/', views.NuevoProfesor,name='NuevoProfesor'),
+    # Pagina para editar un profesor.    
+    path('editarprofesor/<int:profesorid>/', views.editarprofesor, name='editarprofesor'),
+    
 ]

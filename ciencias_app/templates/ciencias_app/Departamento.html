@@ -12,10 +12,14 @@
     <li>
         <p>{{ Profesor.Nombre|linebreaks}}</p>
         <p>{{ Profesor.Apellido|linebreaks }}</p>
+        <p>
+            <a href="{% url 'ciencias_app:editarprofesor' Profesor.id %}">Editar profesor</a>
+        </p>
     </li>
     {% empty %}
     <li>No hay profesores para este departamento.</li>
     {% endfor %}
+
 </ul>
 
 {% endblock content %}

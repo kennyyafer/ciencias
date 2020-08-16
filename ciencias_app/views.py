@@ -57,4 +57,22 @@ def NuevoProfesor(request,departamentoid):
     context = {'Departamento':Departamento,'form':form}
     return render(request,'ciencias_app/NuevoProfesor.html',context)
 
+def editarprofesor(request,profesorid):
+    """Edit un profesor existente."""
+    Profesor = profesor.objects.get(id=profesorid)
+    Departamento = Profesor.Departamentoid # Nombre del atributo
+
+    if request.method != 'POST':
+        # Solicitud inicial; rellene previamente el formulario con el profesor actual.
+        form = ProfesorForm(instance=Profesor)
+    else:
+        # Datos POST enviado: procesar datos
+        form = ProfesorForm(instance=Profesor,data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('ciencias_app:Departamento',departamentoid=departamento.id)
+
+    # Mostrar una forma en blanco o invalida
+    context = {'Profesor': Profesor, 'Departamento': Departamento, 'form': form}
+    return render(request,'ciencias_app/editarprofesor.html',context)
         

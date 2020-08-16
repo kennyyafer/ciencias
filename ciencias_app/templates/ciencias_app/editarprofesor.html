@@ -1,0 +1,12 @@
+{% extends "ciencias_app/base.html" %} {% block content %}
+
+<p><a href="{% url 'ciencias_app:Departamento' Departamento.id %}">{{ Departamento }}</a></p>
+<p>Editar profesor:</p>
+
+<form action="{% url 'ciencias_app:editarprofesor' Profesor.id %}" method='post'>
+    {% csrf_token %} {{ form.as_p }}
+    <button name="submit">Guardar cambios</button>
+
+</form>
+
+{% endblock content %}
