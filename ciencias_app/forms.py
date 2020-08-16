@@ -11,8 +11,8 @@ class DepartamentoForm(forms.ModelForm):
 class ProfesorForm(forms.ModelForm):
     class Meta:
         model = profesor
-        fields = ['Nombre']
+        fields = ['Nombre',]
         labels = {'Nombre':''} 
-        widget = {'Nombre':forms.Textarea(attrs={'cols':80})}
+        widget = {'Nombre':''}   #forms.Textarea(attrs={'cols':80})
 
 

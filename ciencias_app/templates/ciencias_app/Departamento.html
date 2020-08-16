@@ -1,8 +1,12 @@
 {% extends 'ciencias_app/base.html' %} {% block content %}
 
-<p>departamento: {{ Departamento }}</p>
+<p>Departamento: {{ Departamento }}</p>
 
 <p>Profesores:</p>
+<p>
+    <a href="{% url 'ciencias_app:NuevoProfesor' Departamento.id %}">Añadir nuevo profesor</a>
+</p>
+
 <ul>
     {% for Profesor in Profesores %}
     <li>
@@ -10,7 +14,7 @@
         <p>{{ Profesor.Apellido|linebreaks }}</p>
     </li>
     {% empty %}
-    <li>There are no entries for this topic yet.</li>
+    <li>No hay profesores para este departamento.</li>
     {% endfor %}
 </ul>
 

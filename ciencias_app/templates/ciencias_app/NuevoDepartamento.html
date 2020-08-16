@@ -2,7 +2,14 @@
 <p>Añadir nuevo departamento:</p>
 
 <form action="{% url 'ciencias_app:NuevoDepartamento' %}" method='post'>
-    {% csrf_token %} {{form.as_p}}
+    {% csrf_token %}
+    <!-- evita que los atacantes utilicen 
+    el formulario para obtener acceso no autorizado al servidor (este tipo
+    de ataque se denomina falsificación de solicitud entre sitios)-->
+    {{form.as_p}}
+    <!-- El modificador as_p le dice a Django que renderice todos los 
+        elementos del formulario en formato de párrafo, como una forma 
+        sencilla de mostrar el formulario de forma ordenada. -->>
     <button name="submit">Añadir nombre</button>
 </form>
 

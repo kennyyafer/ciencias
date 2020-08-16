@@ -15,13 +15,12 @@ def Departamentos(request):
     context = {'Departamentos':Departamentos}
     return render(request, 'ciencias_app/Departamentos.html',context)
 
-# def Departamento(request, id):
-#     """Muestra un solo departamento con todos sus profesores."""
-#     Departamento = departamento.objects.get(id=departamento_id)
-#     Profesores = Departamento.profesor_set.order_by('Apellido')
-#     context = {'Departamento': Departamento, 'Profesores': Profesores}
-#     return render(request, 'ciencias_app/departamento.html', context)
-
+def Departamento(request, departamento_id):
+    """Muestra un solo departamento con todos sus profesores."""
+    Departamento = departamento.objects.get(id=departamento_id)
+    Profesores = Departamento.profesor_set.order_by('Apellido')
+    context = {'Departamento': Departamento, 'Profesores': Profesores}
+    return render(request, 'ciencias_app/Departamento.html', context)
 
 def NuevoDepartamento(request):
     """Añadir nuevo nombre de departamento """
@@ -32,13 +31,12 @@ def NuevoDepartamento(request):
         # Datos POST enviado: procesar datos
         form = DepartamentoForm(data=request.POST)
         if form.is_valid():
-            #form.save()
+            form.save()
             return redirect('ciencias_app:Departamentos')
 
     # Mostrar una forma en blanco o invalida
     context = {'form':form}
     return render(request,'ciencias_app/NuevoDepartamento.html',context)
-
 
 def NuevoProfesor(request,departamentoid):
     """Añadir nuevo nombre para un departamento particular """
@@ -53,7 +51,7 @@ def NuevoProfesor(request,departamentoid):
             nuevoprofesor = form.save(commit=False)
             nuevoprofesor.Departamento = Departamento
             nuevoprofesor.save()
-            return redirect('ciencias_app:resultados_busqueda.html',departamentoid=departamentoid)
+            return redirect('ciencias_app:Departamento',departamentoid)
 
     # Mostrar una forma en blanco o invalida
     context = {'Departamento':Departamento,'form':form}

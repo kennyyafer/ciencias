@@ -6,7 +6,7 @@
     {% for Departamento in Departamentos %}
     <li>
 
-        {{ Departamento }}
+        <a href="{% url 'ciencias_app:Departamento' Departamento.id %}"> {{ Departamento }}</a>
 
     </li>
     {% empty %}
@@ -16,4 +16,4 @@
     {% endfor %}
 </ul>
 
-{% endblock content %}
+<a href="{% url 'ciencias_app:NuevoDepartamento' %}">Añadir nuevo departamento</a> {% endblock content %}

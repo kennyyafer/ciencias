@@ -18,7 +18,6 @@ class departamento(models.Model):
         """Retorna el nombre del departamento."""
         return self.Nombre
 
-
 class profesor(models.Model):
     """Datos generales de los profesores"""
     Nombre = models.CharField(max_length=45,blank=False,null=False)
@@ -37,7 +36,6 @@ class profesor(models.Model):
         """Retorna los campos de la tabla"""
         return "{0},{1}".format(self.Apellido,self.Nombre)
 
-
 class operador(models.Model):
     """Datos generales de la operadora"""
     Nombre = models.CharField("Nombre de la operadora",max_length=45,blank=False,null=False,unique=True)
@@ -52,7 +50,6 @@ class operador(models.Model):
         """Retorna el nombre del operador."""
         return self.Nombre
 
-
 class tipodecurso(models.Model):
     """Datos generales de tipo de curso"""
     Nombre = models.CharField("Tipo de curso",max_length=120,blank=False,null=False,unique=True)
@@ -66,7 +63,6 @@ class tipodecurso(models.Model):
     def __str__(self):
         """Retorna el tipo de curso."""
         return self.Nombre
-
 
 class curso(models.Model):
     """Datos generales del curso"""
@@ -84,7 +80,6 @@ class curso(models.Model):
         """Retorna el codigo y nombre del curso."""
         return "{0},{1}".format(self.Codigo,self.Nombre)
 
-
 class carrera(models.Model):
     """Datos generales de carrera"""
     Nombre = models.CharField("carreras",max_length=120,blank=False,null=False,unique=True)
@@ -100,7 +95,6 @@ class carrera(models.Model):
         """Retorna la carrera."""
         return self.Nombre
 
-
 class estado(models.Model):
     """Datos generales de estado del curso"""
     Nombre = models.CharField("Estado de finalizaciòn",max_length=120,blank=False,null=False,unique=True)
@@ -115,7 +109,6 @@ class estado(models.Model):
     def __str__(self):
         """Retorna el estado del curso."""
         return self.Nombre
-
 
 class curso_profesor(models.Model):
     """Datos generales de carrera"""
@@ -135,7 +128,6 @@ class curso_profesor(models.Model):
     def __str__(self):
         """Retorna el curso llevado por el profesor."""
         return self.Cohorte
-
 
 class operador_profesor(models.Model):
     """Datos generales de operador - profesor"""
