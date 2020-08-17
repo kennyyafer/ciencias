@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'import_export',
     # My apps    
     'ciencias_app',
+    'users',
     #'sequences.apps.SequencesConfig',
 ]
 
@@ -138,3 +139,6 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     '/var/www/static/',
 ]
+
+# My settings
+LOGIN_URL = 'users:login'

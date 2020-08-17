@@ -1,0 +1,12 @@
+{% extends "ciencias_app/base.html" %} {% block content %}
+
+<form method="post" action="{% url 'users:registro' %}">
+    {% csrf_token %} {{ form.as_p }}
+    <!--Django muestre todos los campos en el formulario de manera adecuada, 
+            incluido cualquier mensaje de error si el formulario no se completa correctamente.-->
+
+    <button name="submit">Registro</button>
+    <input type="hidden" name="next" value="{% url 'ciencias_app:index' %}" />
+</form>
+
+{% endblock content %}

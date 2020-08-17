@@ -1,7 +1,26 @@
 <p>
     <a href="{% url 'ciencias_app:index' %}">Ciencias log</a>
-    <a href="{% url 'ciencias_app:Departamentos' %}">Departamentos</a>
+    <a href="{% url 'ciencias_app:Departamentos' %}">Departamentos</a> {% if user.is_authenticated %}
+    <!-- En el sistema de autenticación de Django, cada plantilla tiene una 
+        variable de "user" disponible, que siempre tiene un conjunto de atributos "is_authenticated": el atributo 
+        es "True" si el usuario está conectado y "False" si no lo está. Este atributo le permite mostrar un 
+        mensaje a los usuarios autenticados y otro a los usuarios no autenticados.-->
+
+    Hello, {{ user.username }}.
+    <!-- Aquí mostramos un saludo a los usuarios actualmente conectados.
+        Los usuarios autenticados tienen un conjunto de atributos de "username" adicional, 
+        que usamos para personalizar el saludo y recordarle al usuario que ha iniciado sesión.-->
+    <a href="{% url 'users:logout' %}">Salir</a>
+    <!-- unicamente los usuarios que han entrado pueden verlo. Los usuarios querrán saber que han cerrado 
+        la sesión correctamente, por lo que la vista de cierre de sesión predeterminada muestra la página con 
+        la plantilla logged_out.html.-->
+
+
+    {% else %}
+    <a href="{% url 'users:registro' %}">Registro</a> -
+    <!-- En "else" mostramos un enlace a la página de inicio de sesión para los usuarios que no se han autenticado. -->
+    <a href="{% url 'users:login' %}">Entrar</a> {% endif %}
 </p>
 
 
-{% block content %}{% endblock content %}
+{% block content %} {% endblock content %}

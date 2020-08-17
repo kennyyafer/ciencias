@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse
 from .models import profesor, departamento, curso
@@ -9,12 +10,17 @@ def index(request):
     """The home page for Ciencias log."""
     return render(request, 'ciencias_app/index.html')
 
+@login_required # facilita la restricción del acceso a determinadas páginas a los usuarios que han iniciado sesión
+# El código en login_required () comprueba si un usuario ha iniciado sesión, 
+# y Django ejecuta el código en Departamentos () solo si lo está. Si el usuario no ha iniciado sesión, 
+# se le redirige a la página de inicio de sesión
 def Departamentos(request):
     """Muestra los departamentos.."""
     Departamentos = departamento.objects.order_by('Nombre')
     context = {'Departamentos':Departamentos}
     return render(request, 'ciencias_app/Departamentos.html',context)
 
+@login_required
 def Departamento(request, departamento_id):
     """Muestra un solo departamento con todos sus profesores."""
     Departamento = departamento.objects.get(id=departamento_id)
@@ -22,6 +28,7 @@ def Departamento(request, departamento_id):
     context = {'Departamento': Departamento, 'Profesores': Profesores}
     return render(request, 'ciencias_app/Departamento.html', context)
 
+@login_required
 def NuevoDepartamento(request):
     """Añadir nuevo nombre de departamento """
     if request.method != 'POST':
@@ -38,6 +45,7 @@ def NuevoDepartamento(request):
     context = {'form':form}
     return render(request,'ciencias_app/NuevoDepartamento.html',context)
 
+@login_required
 def NuevoProfesor(request,departamentoid):
     """Añadir nuevo nombre para un departamento particular """
     Departamento = departamento.objects.get(id=departamentoid)
@@ -57,6 +65,7 @@ def NuevoProfesor(request,departamentoid):
     context = {'Departamento':Departamento,'form':form}
     return render(request,'ciencias_app/NuevoProfesor.html',context)
 
+@login_required
 def editarprofesor(request,profesorid):
     """Edit un profesor existente."""
     Profesor = profesor.objects.get(id=profesorid)

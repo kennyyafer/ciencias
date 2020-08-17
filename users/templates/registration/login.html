@@ -1,0 +1,21 @@
+{% extends "ciencias_app/base.html" %} {% block content %} {% if form.errors %}
+<!-- Si se establece el atributo "errors" del formulario, mostramos un mensaje de error, 
+    informando que la combinación de nombre de usuario y contraseña no coincide con nada almacenado en la base de datos.-->
+<p>Tu nombre de usuario y contraseña no coinciden. Por favor intente de nuevo.</p>
+{% endif %}
+
+<form method="post" action="{% url 'users:login' %}">
+    <!--Queremos que la vista de inicio de sesión procese el formulario, 
+    por lo que establecemos el argumento "action" como la URL de la página de inicio de sesión. -->
+    {% csrf_token %} {{ form.as_p }}
+
+    <button name="submit">Log in</button>
+    <!--La vista de inicio de sesión envía un formulario a la plantilla, y nos 
+    corresponde a nosotros mostrar el formulario  y agregar un botón de envío-->
+    <input type="hidden" name="next" value="{% url 'ciencias_app:index' %}" />
+    <!--Incluimos un elemento de formulario oculto, 'next'; 
+        el argumento "value" le dice a Django dónde redirigir al usuario después de que haya iniciado sesión correctamente. 
+        En este caso, enviamos al usuario de regreso a la página de inicio.-->
+</form>
+
+{% endblock content %}
