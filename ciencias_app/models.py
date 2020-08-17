@@ -68,7 +68,7 @@ class curso(models.Model):
     """Datos generales del curso"""
     Codigo = models.CharField('Codigo', max_length=120,null=True, blank=True)
     Nombre = models.CharField("Nombre del curso",max_length=120,blank=False,null=False,unique=True)
-    Tipodecursoid = models.ForeignKey(tipodecurso, on_delete = models.CASCADE,verbose_name='Tipo')
+    Tipodecursoid = models.ForeignKey(tipodecurso, on_delete = models.CASCADE,verbose_name='Tipo',null=False,blank=False)
     Fechacreacion = models.DateField('Fecha de creacion',auto_now_add=True,null=True, blank=True)
 
 
