@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
 
 #Create your models here.
 
@@ -7,6 +8,7 @@ class departamento(models.Model):
     """Datos generales de departamento"""
     Nombre = models.CharField("Nombre del departamento",max_length=45,blank=False,null=False,unique=True)
     Fechacreacion = models.DateField('Fecha de creacion',auto_now_add=True,null=True, blank=True)
+    propietario = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 

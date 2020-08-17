@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import profesor, departamento, curso
 from .forms import DepartamentoForm, ProfesorForm
+from django.http import Http404
 
 # Create your views here.
 def index(request):
@@ -16,7 +17,7 @@ def index(request):
 # se le redirige a la página de inicio de sesión
 def Departamentos(request):
     """Muestra los departamentos.."""
-    Departamentos = departamento.objects.order_by('Nombre')
+    Departamentos = departamento.objects.filter(propietario=request.user).order_by('Nombre')
     context = {'Departamentos':Departamentos}
     return render(request, 'ciencias_app/Departamentos.html',context)
 
@@ -24,6 +25,10 @@ def Departamentos(request):
 def Departamento(request, departamento_id):
     """Muestra un solo departamento con todos sus profesores."""
     Departamento = departamento.objects.get(id=departamento_id)
+    # Asegurarse que el departamento pertenece al usuario actual
+    if Departamento.propietario != request.user:
+        raise Http404
+
     Profesores = Departamento.profesor_set.order_by('Apellido')
     context = {'Departamento': Departamento, 'Profesores': Profesores}
     return render(request, 'ciencias_app/Departamento.html', context)
@@ -38,7 +43,9 @@ def NuevoDepartamento(request):
         # Datos POST enviado: procesar datos
         form = DepartamentoForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            NuevoDepartamento = form.save(commit=False)
+            NuevoDepartamento.propietario = request.user
+            NuevoDepartamento.save()
             return redirect('ciencias_app:Departamentos')
 
     # Mostrar una forma en blanco o invalida
@@ -70,6 +77,9 @@ def editarprofesor(request,profesorid):
     """Edit un profesor existente."""
     Profesor = profesor.objects.get(id=profesorid)
     Departamento = Profesor.Departamentoid # Nombre del atributo
+
+    if Departamento.propietario != request.user:
+        raise Http404
 
     if request.method != 'POST':
         # Solicitud inicial; rellene previamente el formulario con el profesor actual.

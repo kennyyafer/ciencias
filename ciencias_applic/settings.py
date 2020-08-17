@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     # My apps    
     'ciencias_app',
     'users',
+    # Aplicaciones de terceros
+    'bootstrap4',
     #'sequences.apps.SequencesConfig',
 ]
 
@@ -135,10 +137,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    '/var/www/static/',
-]
+
+#STATICFILES_DIRS = [
+    #BASE_DIR / "static",
+   # '/var/www/static/',
+#]
 
 # My settings
 LOGIN_URL = 'users:login'
